@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATT&CK Trainer | MITRE Framework Mastery</title>
+
+  <!-- Google Fonts — monospace hacker aesthetic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ================================================================
+     ROOT APP CONTAINER
+     ================================================================ -->
+<div id="app">
+
+  <!-- ==============================================================
+       SCANLINE OVERLAY — CSS-only CRT screen visual effect
+       ============================================================== -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- ==============================================================
+       HEADER — Logo, Home button, XP Score
+       ============================================================== -->
+  <header id="main-header">
+    <div class="header-inner">
+
+      <!-- Clickable logo returns to home -->
+      <div class="logo" id="logo-home-btn" role="button" tabindex="0" title="Return to Home">
+        <span class="logo-bracket">[</span>
+        <span class="logo-text">ATT<span class="logo-amp">&amp;</span>CK</span>
+        <span class="logo-sep"> | </span>
+        <span class="logo-trainer">TRAINER</span>
+        <span class="logo-bracket">]</span>
+      </div>
+
+      <nav class="header-nav">
+        <button class="nav-btn" id="btn-home">⌂ HOME</button>
+      </nav>
+
+      <!-- Global XP score display -->
+      <div class="score-panel" title="Your total XP earned">
+        <span class="score-label">[ XP ]</span>
+        <span class="score-value" id="total-score">0</span>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==============================================================
+       MAIN CONTENT — All screens live here; only one is .active
+       ============================================================== -->
+  <main id="main-content">
+
+    <!-- ============================================================
+         SCREEN: HOME / DASHBOARD
+         ============================================================ -->
+    <div id="screen-home" class="screen active">
+
+      <!-- Hero section -->
+      <section class="home-hero">
+        <div class="hero-badge">MITRE ATT&amp;CK® FRAMEWORK TRAINING</div>
+        <h1 class="hero-title glitch-text" data-text="ATTACK TRAINER">ATTACK TRAINER</h1>
+        <p class="hero-subtitle">
+          Master the adversary mindset.&nbsp; Learn to defend.
+        </p>
+
+        <!-- Quick stats bar -->
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-num">14</span>
+            <span class="stat-label">Tactics</span>
+          </div>
+          <div class="stat-sep">|</div>
+          <div class="stat-item">
+            <span class="stat-num">70+</span>
+            <span class="stat-label">Techniques</span>
+          </div>
+          <div class="stat-sep">|</div>
+          <div class="stat-item">
+            <span class="stat-num">6</span>
+            <span class="stat-label">Activities</span>
+          </div>
+          <div class="stat-sep">|</div>
+          <div class="stat-item">
+            <span class="stat-num">∞</span>
+            <span class="stat-label">Replays</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Activity selection grid (populated by app.js) -->
+      <section class="activities-section">
+        <h2 class="section-title">
+          <span class="title-marker">&gt;_</span> SELECT TRAINING MODULE
+        </h2>
+        <div class="activities-grid" id="activities-grid">
+          <!-- Injected by App.renderActivityGrid() -->
+        </div>
+      </section>
+
+      <!-- Operator status / progress section -->
+      <section class="progress-section">
+        <h2 class="section-title">
+          <span class="title-marker">&gt;_</span> OPERATOR STATUS
+        </h2>
+        <div class="progress-grid" id="progress-grid">
+          <!-- Injected by App.renderProgressGrid() -->
+        </div>
+        <button class="btn-reset" onclick="if(confirm('Reset your XP score to 0?')) App.resetScore()">
+          ↺ RESET XP
+        </button>
+      </section>
+
+      <!-- MITRE ATT&CK lifecycle quick-reference -->
+      <section class="lifecycle-ref-section">
+        <h2 class="section-title">
+          <span class="title-marker">&gt;_</span> ATTACK LIFECYCLE (KILL CHAIN ORDER)
+        </h2>
+        <div class="lifecycle-ref-bar">
+          <div class="lc-ref-item" style="--c:#ff6b35">
+            <span class="lc-ref-num">1</span>
+            <span class="lc-ref-name">Reconnaissance</span>
+          </div>
+          <div class="lc-ref-arrow">→</div>
+          <div class="lc-ref-item" style="--c:#ff4500">
+            <span class="lc-ref-num">2</span>
+            <span class="lc-ref-name">Resource Dev.</span>
+          </div>
+          <div class="lc-ref-arrow">→</div>
+          <div class="lc-ref-item" style="--c:#dc143c">
+            <span class="lc-ref-num">3</span>
+            <span class="lc-ref-name">Initial Access</span>
+          </div>
+          <div class="lc-ref-arrow">→</div>
+          <div class="lc-ref-item" style="--c:#cc0000">
+            <span class="lc-ref-num">4</span>
+            <span class="lc-ref-name">Execution</span>
+          </div>
+          <div class="lc-ref-arrow">→</div>
+          <div class="lc-ref-item" style="--c:#b22222">
+            <span class="lc-ref-num">5</span>
+            <span class="lc-ref-name">Persistence</span>
+          </div>
+          <div class="lc-ref-arrow">→</div>
+          <div class="lc-ref-item" style="--c:#ff8c00">
+            <span class="lc-ref-num">6</span>
+            <span class="lc-ref-name">Priv. Escalation</span>
+          </div>
+          <div class="lc-ref-arrow">→</div>
+          <div class="lc-ref-item" style="--c:#9400d3">
+            <span class="lc-ref-num">7</span>
+            <span class="lc-ref-name">Defense Evasion</span>
+          </div>
+          <div class="lc-ref-arrow">→</div>
+          <div class="lc-ref-item" style="--c:#ffd700">
+            <span class="lc-ref-num">8</span>
+            <span class="lc-ref-name">Cred. Access</span>
+          </div>
+          <div class="lc-ref-arrow">→</div>
+          <div class="lc-ref-item" style="--c:#32cd32">
+            <span class="lc-ref-num">9</span>
+            <span class="lc-ref-name">Discovery</span>
+          </div>
+          <div class="lc-ref-arrow">→</div>
+          <div class="lc-ref-item" style="--c:#00ced1">
+            <span class="lc-ref-num">10</span>
+            <span class="lc-ref-name">Lateral Movement</span>
+          </div>
+          <div class="lc-ref-arrow">→</div>
+          <div class="lc-ref-item" style="--c:#ff69b4">
+            <span class="lc-ref-num">11</span>
+            <span class="lc-ref-name">Collection</span>
+          </div>
+          <div class="lc-ref-arrow">→</div>
+          <div class="lc-ref-item" style="--c:#4169e1">
+            <span class="lc-ref-num">12</span>
+            <span class="lc-ref-name">C2</span>
+          </div>
+          <div class="lc-ref-arrow">→</div>
+          <div class="lc-ref-item" style="--c:#ff4500">
+            <span class="lc-ref-num">13</span>
+            <span class="lc-ref-name">Exfiltration</span>
+          </div>
+          <div class="lc-ref-arrow">→</div>
+          <div class="lc-ref-item" style="--c:#ff0000">
+            <span class="lc-ref-num">14</span>
+            <span class="lc-ref-name">Impact</span>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- end screen-home -->
+
+
+    <!-- ============================================================
+         SCREEN: STUDY MODE
+         ============================================================ -->
+    <div id="screen-study" class="screen">
+      <div class="screen-header">
+        <h2 class="screen-title">📚 STUDY MODE</h2>
+        <button class="btn-back" onclick="App.goHome()">← BACK</button>
+      </div>
+      <div id="study-content"></div>
+    </div>
+
+
+    <!-- ============================================================
+         SCREEN: LIFECYCLE CHALLENGE
+         ============================================================ -->
+    <div id="screen-lifecycle" class="screen">
+      <div class="screen-header">
+        <h2 class="screen-title">🔢 LIFECYCLE CHALLENGE</h2>
+        <button class="btn-back" onclick="App.goHome()">← BACK</button>
+      </div>
+      <div id="lifecycle-content"></div>
+    </div>
+
+
+    <!-- ============================================================
+         SCREEN: TECHNIQUE HUNTER
+         ============================================================ -->
+    <div id="screen-technique-quiz" class="screen">
+      <div class="screen-header">
+        <h2 class="screen-title">🎯 TECHNIQUE HUNTER</h2>
+        <button class="btn-back" onclick="App.goHome()">← BACK</button>
+      </div>
+      <div id="technique-quiz-content"></div>
+    </div>
+
+
+    <!-- ============================================================
+         SCREEN: TACTIC MAPPER
+         ============================================================ -->
+    <div id="screen-tactic-mapper" class="screen">
+      <div class="screen-header">
+        <h2 class="screen-title">🧩 TACTIC MAPPER</h2>
+        <button class="btn-back" onclick="App.goHome()">← BACK</button>
+      </div>
+      <div id="tactic-mapper-content"></div>
+    </div>
+
+
+    <!-- ============================================================
+         SCREEN: DEFENSE BUILDER
+         ============================================================ -->
+    <div id="screen-countermeasure" class="screen">
+      <div class="screen-header">
+        <h2 class="screen-title">🛡️ DEFENSE BUILDER</h2>
+        <button class="btn-back" onclick="App.goHome()">← BACK</button>
+      </div>
+      <div id="countermeasure-content"></div>
+    </div>
+
+
+    <!-- ============================================================
+         SCREEN: SPEED ROUND
+         ============================================================ -->
+    <div id="screen-speed-round" class="screen">
+      <div class="screen-header">
+        <h2 class="screen-title">⚡ SPEED ROUND</h2>
+        <button class="btn-back" onclick="App.goHome()">← BACK</button>
+      </div>
+      <div id="speed-round-content"></div>
+    </div>
+
+  </main><!-- end main-content -->
+
+
+  <!-- ==============================================================
+       GLOBAL MODAL — Results, technique details, overlays
+       ============================================================== -->
+  <div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-box" id="modal-box">
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+</div><!-- end #app -->
+
+
+<!-- ==================================================================
+     SCRIPTS — Strict load order:
+       1. data.js      — data + helper functions
+       2. ui.js        — shared UI utilities
+       3. activities/* — individual activity modules
+       4. app.js       — main controller (depends on everything above)
+     ================================================================== -->
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/activities/study.js"></script>
+<script src="js/activities/lifecycle.js"></script>
+<script src="js/activities/technique-quiz.js"></script>
+<script src="js/activities/tactic-mapper.js"></script>
+<script src="js/activities/countermeasure.js"></script>
+<script src="js/activities/speed-round.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
