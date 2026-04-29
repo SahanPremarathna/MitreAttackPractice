@@ -324,8 +324,8 @@ const SpeedRoundActivity = (function () {
         score++;
         xpEarned += 5;
         if (hintEl) { hintEl.className = 'sr-hint hint-correct'; hintEl.textContent = '✓ ' + hint; }
-        if (trueBtn)  trueBtn.classList.add(userAnswer ? 'btn-flash-correct' : '');
-        if (falseBtn) falseBtn.classList.add(!userAnswer ? 'btn-flash-correct' : '');
+        if (trueBtn  &&  userAnswer) trueBtn.classList.add('btn-flash-correct');
+        if (falseBtn && !userAnswer) falseBtn.classList.add('btn-flash-correct');
       } else {
         wrong++;
         xpEarned = Math.max(0, xpEarned - 1);
